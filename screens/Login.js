@@ -1,35 +1,29 @@
 import React, { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../config/firebase";
 import {
+  StyleSheet,
   Text,
   View,
-  Alert,
-  Image,
-  StyleSheet,
-  SafeAreaView,
+  Button,
   TextInput,
+  Image,
+  SafeAreaView,
   TouchableOpacity,
   StatusBar,
+  Alert,
 } from "react-native";
-
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../config/firebase";
 const backImage = require("../assets/backImage.png");
 
-export default function Login() {
+export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const onHandleLogin = () => {
-    //TODO to del
-    if (email === "test" && password === "123456") {
-      console.log("test login success!");
-      return;
-    }
-
-    if (email !== "" && password != "") {
+    if (email !== "" && password !== "") {
       signInWithEmailAndPassword(auth, email, password)
         .then(() => console.log("Login success"))
-        .catch((error) => Alert.alert("Login error", error.message));
+        .catch((err) => Alert.alert("Login error", err.message));
     }
   };
 
@@ -38,34 +32,33 @@ export default function Login() {
       <Image source={backImage} style={styles.backImage} />
       <View style={styles.whiteSheet} />
       <SafeAreaView style={styles.form}>
-        <Text style={styles.title}>Login</Text>
+        <Text style={styles.title}>Log In</Text>
         <TextInput
           style={styles.input}
-          placeholder="Enter Email"
+          placeholder="Enter email"
           autoCapitalize="none"
           keyboardType="email-address"
           textContentType="emailAddress"
           autoFocus={true}
           value={email}
           onChangeText={(text) => setEmail(text)}
-        ></TextInput>
-
+        />
         <TextInput
           style={styles.input}
-          placeholder="Enter Password"
+          placeholder="Enter password"
           autoCapitalize="none"
           autoCorrect={false}
           secureTextEntry={true}
+          textContentType="password"
           value={password}
           onChangeText={(text) => setPassword(text)}
-        ></TextInput>
-
+        />
         <TouchableOpacity style={styles.button} onPress={onHandleLogin}>
-          <Text style={{ fontWeight: "bold", color: "#fff", fontSize: "18" }}>
-            Login
+          <Text style={{ fontWeight: "bold", color: "#fff", fontSize: 18 }}>
+            {" "}
+            Log In
           </Text>
         </TouchableOpacity>
-
         <View
           style={{
             marginTop: 20,
@@ -89,7 +82,6 @@ export default function Login() {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

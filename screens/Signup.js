@@ -1,39 +1,38 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import {
-  StatusBar,
-  TouchableOpacity,
-  Image,
   StyleSheet,
-  View,
   Text,
+  View,
+  Button,
+  TextInput,
+  Image,
   SafeAreaView,
+  TouchableOpacity,
+  StatusBar,
+  Alert,
 } from "react-native";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebase";
-import { TextInput } from "react-native-gesture-handler";
-export default function Signup() {
+const backImage = require("../assets/backImage.png");
+
+export default function Signup({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const backImage = require("../assets/backImage.png");
 
   const onHandleSignup = () => {
     if (email !== "" && password !== "") {
       createUserWithEmailAndPassword(auth, email, password)
-        .then(() => {
-          console.log("Signup success!");
-        })
-        .catch((error) => {
-          Alert.alert("Signup error", error.message);
-        });
+        .then(() => console.log("signup success"))
+        .catch((err) => Alert.alert("Login Error"), err.message);
     }
   };
 
   return (
     <View style={styles.container}>
-      <Image source={backImage} style={styles.backImage}></Image>
-      <View style={styles.whiteSheet}></View>
+      <Image source={backImage} style={styles.backImage} />
+      <View style={styles.whiteSheet} />
       <SafeAreaView style={styles.form}>
-        <Text style={styles.title}>Sing Up</Text>
+        <Text style={styles.title}>Sign Up</Text>
         <TextInput
           style={styles.input}
           placeholder="Enter email"
@@ -43,7 +42,7 @@ export default function Signup() {
           autoFocus={true}
           value={email}
           onChangeText={(text) => setEmail(text)}
-        ></TextInput>
+        />
         <TextInput
           style={styles.input}
           placeholder="Enter password"
@@ -83,7 +82,6 @@ export default function Signup() {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

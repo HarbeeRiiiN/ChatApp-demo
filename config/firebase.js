@@ -1,11 +1,8 @@
+import Constants from "expo-constants";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import Constants from "expo-constants";
-import { initializeAuth, getReactNativePersistence } from "firebase/auth";
-import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
 
-// Firebase config
 const firebaseConfig = {
   apiKey: Constants.expoConfig.extra.apiKey,
   authDomain: Constants.expoConfig.extra.authDomain,
@@ -13,12 +10,10 @@ const firebaseConfig = {
   storageBucket: Constants.expoConfig.extra.storageBucket,
   messagingSenderId: Constants.expoConfig.extra.messagingSenderId,
   appId: Constants.expoConfig.extra.appId,
-  databaseURL: Constants.expoConfig.extra.databaseURL,
-  //   @deprecated is deprecated Constants.manifest
 };
-// initialize firebase
-const app = initializeApp(firebaseConfig);
-export const auth = initializeAuth(app, {
-  persistence: getReactNativePersistence(ReactNativeAsyncStorage),
-});
+
+initializeApp(firebaseConfig);
+export const auth = getAuth();
 export const database = getFirestore();
+
+console.log(firebaseConfig);

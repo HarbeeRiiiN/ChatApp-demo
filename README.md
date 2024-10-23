@@ -4,13 +4,19 @@
 
 register react native project
 
-DO NOT share firebaseConfig
+DO NOT share firebase config
 
 ### env variables
 
 create `.env` -> rename `app.js` as `app.config.js`
 
 create folder `config`, create `firebase.js`
+
+dotenv v.s. expo-constants
+
+Why:
+
+.env + dotenv -> app.config.js + extra -> expo-constant
 
 
 
@@ -22,14 +28,18 @@ create folder `config`, create `firebase.js`
 
 create folder: `screens`
 
+```
 ├── Chat.js
 ├── Home.js
 ├── Login.js
 └── Signup.js
+```
 
 
 
+createContext:
 
+> https://react.dev/reference/react/createContext
 
 
 
@@ -48,3 +58,5 @@ create folder: `screens`
    Then Error: TypeError: Cannot read property 'extra' of null, js engine: hermes
 
    In `app.config.js`: `extra` should be placed inside the expo 
+
+3.  ERROR  FirebaseError: Firebase: Error (auth/already-initialized)., js engine: hermes
