@@ -10,4 +10,5 @@ const Chat = () => {
   return <GiftedChat />;
 };
 
+
 export default Chat;
